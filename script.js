@@ -1,6 +1,7 @@
  // ========================================
 // PRELOADER
 // ========================================
+console.log("Script load ho gayi!");
 window.addEventListener("load", () => {
     const preloader = document.querySelector(".preloader");
     if (preloader) {
