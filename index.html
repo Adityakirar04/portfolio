@@ -9,29 +9,127 @@
 </head>
 <body>
 
+    <!-- Preloader -->
     <div class="preloader">
         <div class="loader-ring"></div>
         <div class="loader-text">Loading<span class="dots">...</span></div>
     </div>
 
+    <!-- Particle Background -->
     <canvas id="particle-canvas"></canvas>
 
+    <!-- Navigation -->
     <header class="header">
         <nav class="navbar">
-            <div class="logo"><span class="logo-bracket">&lt;</span>Aditya<span class="logo-accent">/&gt;</span></div>
+            <div class="logo">
+                <span class="logo-bracket">&lt;</span>Aditya<span class="logo-accent">/&gt;</span>
+            </div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
+                <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </nav>
     </header>
 
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge reveal">
+                <i class="fas fa-circle pulse"></i> Available for opportunities
+            </div>
+            <h3 class="reveal">Hello World, I'm</h3>
+            <h1 class="reveal">Aditya Kirar</h1>
+            <div class="typing-container reveal">
+                <span class="static-text">I'm a </span>
+                <span class="typing-text"></span>
+                <span class="cursor">|</span>
+            </div>
+            <p class="sub-tagline reveal">
+                Building modern, clean web experiences and breaking down algorithms under the alias 
+                <span class="highlight">Dark Recursion</span>.
+            </p>
+            <div class="social-icons reveal">
+                <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="social-btn">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" rel="noopener noreferrer" class="social-btn">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                    <i class="fas fa-code"></i>
+                    <span>LeetCode</span>
+                </a>
+            </div>
+            <div class="hero-btns reveal">
+                <a href="#projects" class="btn primary-btn">
+                    <span>View My Work</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="newone.pdf" download class="btn secondary-btn">
+                    <span>Download Resume</span>
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title reveal">About Me</h2>
+        <div class="about-container">
+            <div class="about-image reveal">
+                <div class="image-frame">
+                    <div class="image-placeholder">
+                        <img src="profile.jpeg" alt="Aditya Kirar">
+                    </div>
+                    <div class="image-glow"></div>
+                </div>
+            </div>
+            <div class="about-content reveal">
+                <div class="about-text">
+                    <p class="lead">
+                        I am a highly motivated <strong>Computer Science & Engineering</strong> undergraduate at 
+                        Jaypee University of Engineering and Technology.
+                    </p>
+                    <p>
+                        I bridge the gap between interactive, responsive user interfaces and structural logic. 
+                        Right now, I'm actively sharpening my full-stack capabilities—diving deep into backend 
+                        development with Node.js, Express, and databases while consistently grinding out complex data 
+                        structures and algorithm problems on LeetCode.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <h2 class="section-title reveal">Get In Touch</h2>
         <div class="contact-wrapper reveal">
             <div class="contact-form-container">
-                <form id="contact-form" action="https://formspree.io/f/mojzoeyp" method="POST">
+                 <!-- FORM ACTION KE SATH -->
+                 <form class="contact-form" id="contact-form" action="https://formspree.io/f/mojzoeyp" method="POST">
                     <div class="form-group">
                         <input type="text" name="name" id="name" required placeholder=" ">
                         <label for="name">Your Name</label>
