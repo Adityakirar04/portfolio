@@ -1,47 +1,38 @@
- document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM loaded. Looking for form...");
-    const contactForm = document.getElementById("contact-form");
-
-    if (!contactForm) {
-        console.error("CRITICAL ERROR: No form found with id 'contact-form'");
-        return;
+ // ========================================
+// 1. PRELOADER
+// ========================================
+window.addEventListener("load", () => {
+    const preloader = document.querySelector(".preloader");
+    if (preloader) {
+        preloader.classList.add("hidden");
+        setTimeout(() => { preloader.style.display = "none"; }, 600);
     }
+});
+setTimeout(() => {
+    const preloader = document.querySelector(".preloader");
+    if (preloader) preloader.style.display = "none";
+}, 3000);
 
-    contactForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        console.log("Submit button clicked!");
+// ========================================
+// 2. HERO TYPING EFFECT
+// ========================================
+document.addEventListener("DOMContentLoaded", () => {
+    const words = ["Full-Stack Developer", "Problem Solver", "CS Undergrad", "Tech Enthusiast"];
+    let wordIndex = 0, letterIndex = 0, currentText = "", isDeleting = false;
+    const typingElement = document.querySelector(".typing-text");
 
-        const btn = contactForm.querySelector(".submit-btn");
-        btn.innerText = "Sending...";
-        btn.disabled = true;
+    if (typingElement) {
+        const typeEffect = () => {
+            const currentWord = words[wordIndex % words.length];
+            currentText = isDeleting ? currentWord.substring(0, letterIndex - 1) : currentWord.substring(0, letterIndex + 1);
+            typingElement.textContent = currentText;
+            letterIndex = isDeleting ? letterIndex - 1 : letterIndex + 1;
 
-        const data = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            message: document.getElementById("message").value
+            let delay = 100;
+            if (!isDeleting && letterIndex === currentWord.length) { delay = 1500; isDeleting = true; }
+            else if (isDeleting && letterIndex === 0) { isDeleting = false; wordIndex++; delay = 500; }
+            setTimeout(typeEffect, delay);
         };
-
-        console.log("Attempting to fetch with data:", data);
-
-        try {
-            const response = await fetch("https://portfolio-jphq.onrender.com/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
-
-            console.log("Fetch finished. Status:", response.status);
-            
-            const result = await response.json();
-            alert("Success! Server said: " + JSON.stringify(result));
-            contactForm.reset();
-
-        } catch (error) {
-            console.error("FATAL FETCH ERROR:", error);
-            alert("The code crashed at fetch. Check the console logs.");
-        } finally {
-            btn.innerText = "Send Message";
-            btn.disabled = false;
-        }
-    });
+        typeEffect();
+    }
 });
