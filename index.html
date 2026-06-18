@@ -1,477 +1,789 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ========================================
+         CRITICAL META & SEO
+         ======================================== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aditya Kirar | Creative Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Primary SEO -->
+    <title>Aditya Kirar | Full-Stack Developer & DSA Enthusiast</title>
+    <meta name="description" content="Aditya Kirar - Computer Science undergrad at JUET, Full-Stack Developer specializing in MERN stack, Problem Solver with 200+ LeetCode solutions. Building modern web experiences.">
+    <meta name="keywords" content="Aditya Kirar, Full Stack Developer, MERN Stack, React Developer, Node.js, DSA, LeetCode, Web Developer India, CS Undergrad, Dark Recursion">
+    <meta name="author" content="Aditya Kirar">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://adityakirar.dev">
+    
+    <!-- Theme & Mobile -->
+    <meta name="theme-color" content="#050810">
+    <meta name="msapplication-TileColor" content="#050810">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Aditya Kirar">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adityakirar.dev">
+    <meta property="og:title" content="Aditya Kirar | Full-Stack Developer & Problem Solver">
+    <meta property="og:description" content="Building modern web experiences and breaking down complex algorithms. CS Undergrad | MERN Stack | 200+ LeetCode Problems">
+    <meta property="og:image" content="https://adityakirar.dev/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://adityakirar.dev">
+    <meta property="twitter:title" content="Aditya Kirar | Full-Stack Developer">
+    <meta property="twitter:description" content="Building modern web experiences and breaking down complex algorithms.">
+    <meta property="twitter:image" content="https://adityakirar.dev/og-image.jpg">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://formspree.io">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Aditya Kirar",
+        "alternateName": "Dark Recursion",
+        "url": "https://adityakirar.dev",
+        "jobTitle": "Full-Stack Developer",
+        "description": "Computer Science undergraduate and Full-Stack Developer specializing in MERN stack",
+        "image": "https://adityakirar.dev/profile.jpeg",
+        "email": "mailto:mr.kirar62@gmail.com",
+        "telephone": "+91-7878861554",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Guna",
+            "addressRegion": "Madhya Pradesh",
+            "addressCountry": "IN"
+        },
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Jaypee University of Engineering and Technology"
+        },
+        "sameAs": [
+            "https://github.com/Adityakirar04",
+            "https://www.linkedin.com/in/aditya-kirar",
+            "https://leetcode.com/u/DarkRecursion/"
+        ],
+        "knowsAbout": ["Web Development", "Data Structures", "Algorithms", "React.js", "Node.js", "MongoDB", "JavaScript", "C++"]
+    }
+    </script>
+    
+    <style>
+        /* Critical CSS - Above the fold */
+        .preloader{position:fixed;inset:0;background:#050810;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;transition:opacity .6s,visibility .6s}
+        .preloader.hidden{opacity:0;visibility:hidden}
+        .loader-ring{width:50px;height:50px;border:3px solid transparent;border-top-color:#00f2fe;border-right-color:#9b51e0;border-radius:50%;animation:spin 1s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .loader-text{margin-top:20px;color:#94a3b8;letter-spacing:3px;font-size:.95rem}
+        .dots::after{content:'.';animation:dots 1.5s infinite}
+        @keyframes dots{0%,20%{content:'.'}40%{content:'..'}60%,100%{content:'...'}}
+        #particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+        .no-js .preloader{display:none!important}
+        .no-js .reveal{opacity:1!important;transform:none!important}
+    </style>
 </head>
 <body>
+    <!-- NoScript Fallback -->
+    <noscript>
+        <style>
+            .preloader{display:none!important}
+            .reveal{opacity:1!important;transform:none!important}
+            #particle-canvas{display:none}
+        </style>
+        <div style="position:fixed;top:0;left:0;right:0;background:#ff006e;color:#fff;text-align:center;padding:12px;z-index:99999;font-size:0.9rem;">
+            <i class="fas fa-exclamation-triangle" style="margin-right:8px;"></i>
+            JavaScript is disabled. Some features may not work properly. Please enable JavaScript for the best experience.
+        </div>
+    </noscript>
 
-    <!-- Preloader -->
-    <div class="preloader">
+    <!-- ========================================
+         PROGRESS BAR
+         ======================================== -->
+    <div class="progress-bar" id="progress-bar" aria-hidden="true"></div>
+
+    <!-- ========================================
+         PRELOADER
+         ======================================== -->
+    <div class="preloader" role="status" aria-label="Loading portfolio">
         <div class="loader-ring"></div>
-        <div class="loader-text">Loading<span class="dots">...</span></div>
+        <div class="loader-text">Loading<span class="dots"></span></div>
     </div>
 
-    <!-- Particle Background -->
-    <canvas id="particle-canvas"></canvas>
+    <!-- ========================================
+         PARTICLE BACKGROUND
+         ======================================== -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    
+    <!-- Noise Texture Overlay -->
+    <div class="noise-overlay" aria-hidden="true"></div>
 
-    <!-- Navigation -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="logo">
-                <span class="logo-bracket">&lt;</span>Aditya<span class="logo-accent">/&gt;</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+    <!-- ========================================
+         SKIP TO CONTENT (Accessibility)
+         ======================================== -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <header class="header" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <a href="#home" class="logo" aria-label="Aditya Kirar - Home">
+                <span class="logo-bracket" aria-hidden="true">&lt;</span>Aditya<span class="logo-accent" aria-hidden="true">/&gt;</span>
+            </a>
+            
+            <ul class="nav-links" role="menubar">
+                <li role="none"><a href="#home" role="menuitem" class="active">Home</a></li>
+                <li role="none"><a href="#about" role="menuitem">About</a></li>
+                <li role="none"><a href="#skills" role="menuitem">Skills</a></li>
+                <li role="none"><a href="#experience" role="menuitem">Journey</a></li>
+                <li role="none"><a href="#projects" role="menuitem">Projects</a></li>
+                <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
             </ul>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            
+            <button class="menu-toggle" id="mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-content">
-            <div class="hero-badge reveal">
-                <i class="fas fa-circle pulse"></i> Available for opportunities
-            </div>
-            <h3 class="reveal">Hello World, I'm</h3>
-            <h1 class="reveal">Aditya Kirar</h1>
-            <div class="typing-container reveal">
-                <span class="static-text">I'm a </span>
-                <span class="typing-text"></span>
-                <span class="cursor">|</span>
-            </div>
-            <p class="sub-tagline reveal">
-                Building modern, clean web experiences and breaking down algorithms under the alias 
-                <span class="highlight">Dark Recursion</span>.
-            </p>
-            <div class="social-icons reveal">
-                <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="social-btn">
-                    <i class="fab fa-github"></i>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" rel="noopener noreferrer" class="social-btn">
-                    <i class="fab fa-linkedin-in"></i>
-                    <span>LinkedIn</span>
-                </a>
-                <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" rel="noopener noreferrer" class="social-btn">
-                    <i class="fas fa-code"></i>
-                    <span>LeetCode</span>
-                </a>
-            </div>
-            <div class="hero-btns reveal">
-                <a href="#projects" class="btn primary-btn">
-                    <span>View My Work</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-                <a href="newone.pdf" download class="btn secondary-btn">
-                    <span>Download Resume</span>
-                    <i class="fas fa-download"></i>
-                </a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <div class="arrow">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </section>
+    <!-- ========================================
+         MAIN CONTENT
+         ======================================== -->
+    <main id="main-content">
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <h2 class="section-title reveal">About Me</h2>
-        <div class="about-container">
-            <div class="about-image reveal">
-                <div class="image-frame">
-                    <div class="image-placeholder">
-                        <img src="profile.jpeg" alt="Aditya Kirar">
-                    </div>
-                    <div class="image-glow"></div>
+        <!-- ========================================
+             HERO SECTION
+             ======================================== -->
+        <section id="home" class="hero-section" aria-label="Hero section">
+            <div class="hero-content">
+                <div class="hero-badge reveal" aria-label="Status: Available for opportunities">
+                    <span class="pulse-dot" aria-hidden="true"></span>
+                    <span>Available for opportunities</span>
+                </div>
+                
+                <h3 class="reveal">Hello World, I'm</h3>
+                <h1 class="reveal">Aditya Kirar</h1>
+                
+                <div class="typing-container reveal" aria-label="Dynamic role description">
+                    <span class="static-text">I'm a </span>
+                    <span class="typing-text" aria-live="polite" aria-atomic="true"></span>
+                    <span class="cursor" aria-hidden="true">|</span>
+                </div>
+                
+                <p class="sub-tagline reveal">
+                    Building modern, clean web experiences and breaking down algorithms under the alias 
+                    <span class="highlight">Dark Recursion</span>.
+                </p>
+                
+                <div class="social-icons reveal" role="list" aria-label="Social media links">
+                    <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="social-btn" role="listitem" aria-label="GitHub Profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" rel="noopener noreferrer" class="social-btn" role="listitem" aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" rel="noopener noreferrer" class="social-btn" role="listitem" aria-label="LeetCode Profile">
+                        <i class="fas fa-code" aria-hidden="true"></i>
+                        <span>LeetCode</span>
+                    </a>
+                </div>
+                
+                <div class="hero-btns reveal">
+                    <a href="#projects" class="btn primary-btn">
+                        <span>View My Work</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="newone.pdf" download class="btn secondary-btn" aria-label="Download Resume PDF">
+                        <span>Download Resume</span>
+                        <i class="fas fa-download" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
-            <div class="about-content reveal">
-                <div class="about-text">
-                    <p class="lead">
-                        I am a highly motivated <strong>Computer Science & Engineering</strong> undergraduate at 
-                        Jaypee University of Engineering and Technology.
-                    </p>
-                    <p>
-                        I bridge the gap between interactive, responsive user interfaces and structural logic. 
-                        Right now, I'm actively sharpening my full-stack capabilities—diving deep into backend 
-                        development with Node.js, Express, and databases while consistently grinding out complex data 
-                        structures and algorithm problems on LeetCode.
-                    </p>
+            
+            <div class="scroll-indicator" aria-hidden="true">
+                <div class="mouse">
+                    <div class="wheel"></div>
                 </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number" data-target="200">0</span>+
-                        <span class="stat-label">Problems Solved</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" data-target="5">0</span>+
-                        <span class="stat-label">Projects Built</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" data-target="3">0</span>+
-                        <span class="stat-label">Years Coding</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" data-target="100">0</span>%
-                        <span class="stat-label">Commitment</span>
-                    </div>
+                <div class="arrow">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills-section">
-        <h2 class="section-title reveal">Technical Skills</h2>
-        <div class="skills-container">
-            <div class="skills-category reveal">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <i class="fas fa-terminal"></i>
-                    </div>
-                    <h3>Languages</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <span class="skill-name">C++</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">JavaScript</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">HTML5 / CSS3</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="95"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Python</span>
-                        <span class="badge">Basic</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skills-category reveal">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3>Frontend Development</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <span class="skill-name">React.js</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Bootstrap</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Responsive Design</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skills-category reveal">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3>Backend & Core CS</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <span class="skill-name">Node.js & Express.js</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">MongoDB & MySQL</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Data Structures (DSA)</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">OOPs, OS & DBMS</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skills-category reveal">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Tools & Platforms</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <span class="skill-name">Git & GitHub</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">VS Code</span>
-                        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-name">Postman</span>
-                        <span class="badge">Intermediate</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="timeline-section">
-        <h2 class="section-title reveal">Journey So Far</h2>
-        <div class="timeline-container">
-            <div class="timeline-block reveal">
-                <h3 class="block-title">
-                    <div class="block-icon"><i class="fas fa-briefcase"></i></div>
-                    Experience & Achievements
-                </h3>
-                <div class="timeline-card">
-                    <div class="timeline-date">
-                        <span class="date-badge">June 2025 – August 2025</span>
-                    </div>
-                    <h4>Web Development Intern</h4>
-                    <h5>Codec Technologies (Remote)</h5>
-                    <p>Developed responsive web interfaces using HTML, CSS, and JavaScript. Collaborated on frontend UI implementation and managed version control workflows via Git and GitHub environments.</p>
-                    <div class="timeline-tags">
-                        <span>HTML5</span>
-                        <span>CSS3</span>
-                        <span>JavaScript</span>
-                        <span>Git</span>
-                    </div>
-                </div>
-
-                <div class="timeline-card">
-                    <div class="timeline-date">
-                        <span class="date-badge">DSA & Problem Solving</span>
-                    </div>
-                    <h4>LeetCode Profile: DarkRecursion</h4>
-                    <h5>Active Problem Solver</h5>
-                    <p>Strong understanding of Arrays, Strings, Binary Search, Recursion, Stack, Queue, and Heap architectures. Continuously improving software development skills through rigorous DSA practice.</p>
-                </div>
-            </div>
-
-            <div class="timeline-block reveal">
-                <h3 class="block-title">
-                    <div class="block-icon"><i class="fas fa-graduation-cap"></i></div>
-                    Education
-                </h3>
-                <div class="timeline-card">
-                    <div class="timeline-date">
-                        <span class="date-badge">2023 – 2027</span>
-                    </div>
-                    <h4>B.Tech in Computer Science</h4>
-                    <h5>Jaypee University of Engineering and Technology, Guna</h5>
-                </div>
-                <div class="timeline-card">
-                    <div class="timeline-date">
-                        <span class="date-badge">2022 – 2023</span>
-                    </div>
-                    <h4>Class XII (Senior Secondary)</h4>
-                    <h5>Vidisha Academy | Score: 73.4%</h5>
-                </div>
-                <div class="timeline-card">
-                    <div class="timeline-date">
-                        <span class="date-badge">2020 – 2021</span>
-                    </div>
-                    <h4>Class X (Secondary School)</h4>
-                    <h5>Magdham International School | Score: 88%</h5>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects-section">
-        <h2 class="section-title reveal">Featured Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card reveal">
-                <div class="project-image">
-                    <div class="project-icon">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <div class="project-overlay">
-                        <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="project-link" title="View Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3>URL Shortener Platform</h3>
-                        <div class="project-tech">Node.js · Express.js · MongoDB</div>
-                    </div>
-                    <p>Developed a full-stack URL shortening application implementing unique short-link generation and automatic URL redirection. Designed REST APIs utilizing MVC architecture for improved scalability.</p>
-                    <div class="project-tags">
-                        <span>Node.js</span>
-                        <span>MongoDB</span>
-                        <span>REST API</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal">
-                <div class="project-image">
-                    <div class="project-icon">
-                        <i class="fas fa-user-graduate"></i>
-                    </div>
-                    <div class="project-overlay">
-                        <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="project-link" title="View Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3>Smart Placement Portal</h3>
-                        <div class="project-tech">React.js · Node.js · Express</div>
-                    </div>
-                    <p>Developing a placement management platform for internship tracking. Built React-based dashboards and student management modules powered by backend APIs designed using Node.js and Express.js.</p>
-                    <div class="project-tags">
-                        <span>React.js</span>
-                        <span>Node.js</span>
-                        <span>Express.js</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal">
-                <div class="project-image">
-                    <div class="project-icon">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <div class="project-overlay">
-                        <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="project-link" title="View Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3>Advanced Task Manager</h3>
-                        <div class="project-tech">JS · HTML5 · CSS3 · Web Storage</div>
-                    </div>
-                    <p>Built a task management application featuring categories, priorities, and timeline tracking. Integrated persistent Local Storage and added input sanitization techniques to enhance application security.</p>
-                    <div class="project-tags">
-                        <span>JavaScript</span>
-                        <span>LocalStorage</span>
-                        <span>Security</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <h2 class="section-title reveal">Get In Touch</h2>
-        <div class="contact-wrapper reveal">
-            <div class="contact-info">
-                <h3>Let's build something amazing together</h3>
-                <p>Whether you have an opportunity, a project to collaborate on, or just want to discuss interesting DSA architectures—my inbox is always open!</p>
-                <div class="contact-details">
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-envelope"></i>
+        <!-- ========================================
+             ABOUT SECTION
+             ======================================== -->
+        <section id="about" class="about-section" aria-labelledby="about-heading">
+            <h2 id="about-heading" class="section-title reveal">About Me</h2>
+            
+            <div class="about-container">
+                <div class="about-image reveal">
+                    <div class="image-frame">
+                        <div class="image-placeholder">
+                            <img src="profile.jpeg" alt="Aditya Kirar - Full Stack Developer" loading="lazy" width="280" height="280">
                         </div>
-                        <div class="info-content">
-                            <span class="info-label">Email</span>
-                            <span class="info-value">mr.kirar62@gmail.com</span>
+                        <div class="image-glow" aria-hidden="true"></div>
+                        <div class="experience-badge" aria-hidden="true">
+                            <span class="exp-years">3+</span>
+                            <span class="exp-text">Years<br>Coding</span>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="info-content">
-                            <span class="info-label">Phone</span>
-                            <span class="info-value">+91 7878861554</span>
-                        </div>
+                </div>
+                
+                <div class="about-content reveal">
+                    <div class="about-text">
+                        <p class="lead">
+                            I am a highly motivated <strong>Computer Science & Engineering</strong> undergraduate at 
+                            Jaypee University of Engineering and Technology.
+                        </p>
+                        <p>
+                            I bridge the gap between interactive, responsive user interfaces and structural logic. 
+                            Right now, I'm actively sharpening my full-stack capabilities—diving deep into backend 
+                            development with Node.js, Express, and databases while consistently grinding out complex data 
+                            structures and algorithm problems on LeetCode.
+                        </p>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                    
+                    <div class="stats-grid" role="list" aria-label="Statistics">
+                        <div class="stat-card" role="listitem">
+                            <span class="stat-number" data-target="200">0</span>+
+                            <span class="stat-label">Problems Solved</span>
                         </div>
-                        <div class="info-content">
-                            <span class="info-label">Location</span>
-                            <span class="info-value">Guna, Madhya Pradesh, India</span>
+                        <div class="stat-card" role="listitem">
+                            <span class="stat-number" data-target="5">0</span>+
+                            <span class="stat-label">Projects Built</span>
+                        </div>
+                        <div class="stat-card" role="listitem">
+                            <span class="stat-number" data-target="3">0</span>+
+                            <span class="stat-label">Years Coding</span>
+                        </div>
+                        <div class="stat-card" role="listitem">
+                            <span class="stat-number" data-target="100">0</span>%
+                            <span class="stat-label">Commitment</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="contact-form-container">
-                <form class="contact-form" id="contact-form" action="https://formspree.io/f/mojzoeyp" method="POST">
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" required placeholder=" ">
-                        <label for="name">Your Name</label>
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" required placeholder=" ">
-                        <label for="email">Your Email</label>
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" id="message" rows="4" required placeholder=" "></textarea>
-                        <label for="message">Your Message</label>
-                        <i class="fas fa-comment"></i>
-                    </div>
-                    <button type="submit" class="btn primary-btn submit-btn">
-                        <span>Send Message</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer>
+        <!-- ========================================
+             SKILLS SECTION
+             ======================================== -->
+        <section id="skills" class="skills-section" aria-labelledby="skills-heading">
+            <h2 id="skills-heading" class="section-title reveal">Technical Skills</h2>
+            
+            <div class="skills-container">
+                <!-- Languages -->
+                <div class="skills-category reveal">
+                    <div class="skill-header">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-terminal"></i>
+                        </div>
+                        <h3>Languages</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">C++</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">JavaScript</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">HTML5 / CSS3</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="95" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <span class="badge">Basic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div class="skills-category reveal">
+                    <div class="skill-header">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Frontend Development</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">React.js</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Bootstrap</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Responsive Design</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="skills-category reveal">
+                    <div class="skill-header">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>Backend & Core CS</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Node.js & Express.js</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">MongoDB & MySQL</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Data Structures (DSA)</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">OOPs, OS & DBMS</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="skills-category reveal">
+                    <div class="skill-header">
+                        <div class="skill-icon" aria-hidden="true">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Tools & Platforms</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Git & GitHub</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">VS Code</span>
+                            <div class="skill-bar"><div class="skill-progress" data-width="90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Postman</span>
+                            <span class="badge">Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
+             EXPERIENCE SECTION
+             ======================================== -->
+        <section id="experience" class="timeline-section" aria-labelledby="experience-heading">
+            <h2 id="experience-heading" class="section-title reveal">Journey So Far</h2>
+            
+            <div class="timeline-container">
+                <!-- Experience -->
+                <div class="timeline-block reveal">
+                    <h3 class="block-title">
+                        <div class="block-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
+                        Experience & Achievements
+                    </h3>
+                    
+                    <article class="timeline-card">
+                        <div class="timeline-date">
+                            <time class="date-badge" datetime="2025-06">June 2025 – August 2025</time>
+                        </div>
+                        <h4>Web Development Intern</h4>
+                        <h5>Codec Technologies (Remote)</h5>
+                        <p>Developed responsive web interfaces using HTML, CSS, and JavaScript. Collaborated on frontend UI implementation and managed version control workflows via Git and GitHub environments.</p>
+                        <div class="timeline-tags">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>Git</span>
+                        </div>
+                    </article>
+
+                    <article class="timeline-card">
+                        <div class="timeline-date">
+                            <span class="date-badge">DSA & Problem Solving</span>
+                        </div>
+                        <h4>LeetCode Profile: DarkRecursion</h4>
+                        <h5>Active Problem Solver</h5>
+                        <p>Strong understanding of Arrays, Strings, Binary Search, Recursion, Stack, Queue, and Heap architectures. Continuously improving software development skills through rigorous DSA practice.</p>
+                        <div class="leetcode-stats-mini">
+                            <div class="lc-stat">
+                                <i class="fas fa-fire" aria-hidden="true"></i>
+                                <span>200+ Problems</span>
+                            </div>
+                            <div class="lc-stat">
+                                <i class="fas fa-trophy" aria-hidden="true"></i>
+                                <span>Top 15%</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Education -->
+                <div class="timeline-block reveal">
+                    <h3 class="block-title">
+                        <div class="block-icon" aria-hidden="true"><i class="fas fa-graduation-cap"></i></div>
+                        Education
+                    </h3>
+                    
+                    <article class="timeline-card">
+                        <div class="timeline-date">
+                            <time class="date-badge" datetime="2023">2023 – 2027</time>
+                        </div>
+                        <h4>B.Tech in Computer Science</h4>
+                        <h5>Jaypee University of Engineering and Technology, Guna</h5>
+                        <p class="edu-detail">Currently pursuing with focus on Software Engineering and Data Structures.</p>
+                    </article>
+                    
+                    <article class="timeline-card">
+                        <div class="timeline-date">
+                            <time class="date-badge" datetime="2022">2022 – 2023</time>
+                        </div>
+                        <h4>Class XII (Senior Secondary)</h4>
+                        <h5>Vidisha Academy | Score: 73.4%</h5>
+                    </article>
+                    
+                    <article class="timeline-card">
+                        <div class="timeline-date">
+                            <time class="date-badge" datetime="2020">2020 – 2021</time>
+                        </div>
+                        <h4>Class X (Secondary School)</h4>
+                        <h5>Magdham International School | Score: 88%</h5>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
+             PROJECTS SECTION
+             ======================================== -->
+        <section id="projects" class="projects-section" aria-labelledby="projects-heading">
+            <h2 id="projects-heading" class="section-title reveal">Featured Projects</h2>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <div class="project-icon" aria-hidden="true">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Source Code on GitHub">
+                                <i class="fab fa-github" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View Live Demo">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>URL Shortener Platform</h3>
+                            <div class="project-tech">Node.js · Express.js · MongoDB</div>
+                        </div>
+                        <p>Developed a full-stack URL shortening application implementing unique short-link generation and automatic URL redirection. Designed REST APIs utilizing MVC architecture for improved scalability.</p>
+                        <div class="project-tags">
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                            <span>REST API</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <div class="project-icon" aria-hidden="true">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Source Code on GitHub">
+                                <i class="fab fa-github" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View Live Demo">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Smart Placement Portal</h3>
+                            <div class="project-tech">React.js · Node.js · Express</div>
+                        </div>
+                        <p>Developing a placement management platform for internship tracking. Built React-based dashboards and student management modules powered by backend APIs designed using Node.js and Express.js.</p>
+                        <div class="project-tags">
+                            <span>React.js</span>
+                            <span>Node.js</span>
+                            <span>Express.js</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <div class="project-icon" aria-hidden="true">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Source Code on GitHub">
+                                <i class="fab fa-github" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View Live Demo">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Advanced Task Manager</h3>
+                            <div class="project-tech">JS · HTML5 · CSS3 · Web Storage</div>
+                        </div>
+                        <p>Built a task management application featuring categories, priorities, and timeline tracking. Integrated persistent Local Storage and added input sanitization techniques to enhance application security.</p>
+                        <div class="project-tags">
+                            <span>JavaScript</span>
+                            <span>LocalStorage</span>
+                            <span>Security</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ========================================
+             CERTIFICATIONS SECTION (NEW)
+             ======================================== -->
+        <section id="certifications" class="certifications-section" aria-labelledby="cert-heading">
+            <h2 id="cert-heading" class="section-title reveal">Certifications</h2>
+            <div class="certs-grid">
+                <div class="cert-card reveal">
+                    <div class="cert-icon"><i class="fas fa-certificate" aria-hidden="true"></i></div>
+                    <div class="cert-content">
+                        <h4>Web Development Internship</h4>
+                        <p>Codec Technologies</p>
+                        <span class="cert-date">2025</span>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+                    <div class="cert-content">
+                        <h4>DSA Problem Solving</h4>
+                        <p>LeetCode & HackerRank</p>
+                        <span class="cert-date">Ongoing</span>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-icon"><i class="fab fa-react" aria-hidden="true"></i></div>
+                    <div class="cert-content">
+                        <h4>React.js Development</h4>
+                        <p>Self-Learning & Projects</p>
+                        <span class="cert-date">2024-2025</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
+             CONTACT SECTION
+             ======================================== -->
+        <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="section-title reveal">Get In Touch</h2>
+            
+            <div class="contact-wrapper reveal">
+                <div class="contact-info">
+                    <h3>Let's build something amazing together</h3>
+                    <p>Whether you have an opportunity, a project to collaborate on, or just want to discuss interesting DSA architectures—my inbox is always open!</p>
+                    
+                    <div class="contact-details">
+                        <div class="info-item">
+                            <div class="info-icon" aria-hidden="true">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">Email</span>
+                                <span class="info-value" id="email-value">mr.kirar62@gmail.com</span>
+                                <button class="copy-btn" onclick="copyEmail()" aria-label="Copy email address">
+                                    <i class="fas fa-copy" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon" aria-hidden="true">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">Phone</span>
+                                <span class="info-value">+91 7878861554</span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon" aria-hidden="true">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">Location</span>
+                                <span class="info-value">Guna, Madhya Pradesh, India</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Availability Calendar -->
+                    <div class="availability-badge">
+                        <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                        <span>Usually responds within 24 hours</span>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/mojzoeyp" method="POST" aria-label="Contact form">
+                        <!-- Honeypot for spam protection -->
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                        
+                        <div class="form-group">
+                            <input type="text" name="name" id="name" required placeholder=" " autocomplete="name" aria-required="true">
+                            <label for="name">Your Name</label>
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" required placeholder=" " autocomplete="email" aria-required="true">
+                            <label for="email">Your Email</label>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" name="subject" id="subject" placeholder=" " autocomplete="off">
+                            <label for="subject">Subject (Optional)</label>
+                            <i class="fas fa-tag" aria-hidden="true"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea name="message" id="message" rows="4" required placeholder=" " aria-required="true"></textarea>
+                            <label for="message">Your Message</label>
+                            <i class="fas fa-comment" aria-hidden="true"></i>
+                        </div>
+                        
+                        <button type="submit" class="btn primary-btn submit-btn" aria-label="Send message">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer role="contentinfo">
         <div class="footer-content">
             <div class="footer-logo">
-                <span class="logo-bracket">&lt;</span>Aditya<span class="logo-accent">/&gt;</span>
+                <span class="logo-bracket" aria-hidden="true">&lt;</span>Aditya<span class="logo-accent" aria-hidden="true">/&gt;</span>
             </div>
-            <div class="footer-social">
-                <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" rel="noopener noreferrer"><i class="fas fa-code"></i></a>
+            
+            <div class="footer-social" role="list" aria-label="Social media links">
+                <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                </a>
+                <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="LeetCode">
+                    <i class="fas fa-code" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:mr.kirar62@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                </a>
             </div>
+            
+            <div class="footer-nav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
             <p class="footer-text">
-                &copy; 2026 Aditya Kirar. Engineered with <i class="fas fa-heart pulse"></i> and passion.
+                &copy; <span id="year">2026</span> Aditya Kirar. Engineered with <i class="fas fa-heart pulse" aria-hidden="true"></i> and passion.
             </p>
+            <p class="footer-credit">Built with HTML, CSS & JavaScript. No frameworks.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- ========================================
+         BACK TO TOP BUTTON
+         ======================================== -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- ========================================
+         TOAST NOTIFICATIONS
+         ======================================== -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ========================================
+         CUSTOM CURSOR (Desktop Only)
+         ======================================== -->
+    <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-outline" id="cursor-outline" aria-hidden="true"></div>
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+    
+    <!-- Service Worker Registration (Optional - for PWA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => {
+                    // Silently fail if no service worker exists
+                });
+            });
+        }
+    </script>
 </body>
 </html>
