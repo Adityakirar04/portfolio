@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        console.log("Submit button click hua!");
 
         const btn = contactForm.querySelector(".submit-btn");
         const originalContent = btn.innerHTML;
