@@ -1,191 +1,51 @@
- // ========================================
-// PRELOADER
-// ========================================
-console.log("Script load ho gayi!");
-window.addEventListener("load", () => {
-    const preloader = document.querySelector(".preloader");
-    if (preloader) {
-        preloader.classList.add("hidden");
-        setTimeout(() => {
-            preloader.style.display = "none";
-        }, 600);
+ document.addEventListener("DOMContentLoaded", () => {
+    console.log("Script load ho gayi!");
+
+    const contactForm = document.querySelector("#contact-form");
+
+    if (!contactForm) {
+        console.error("Error: Form nahi mila! ID check karo.");
+        return;
     }
-});
-
-// ========================================
-// REVEAL ALL SECTIONS
-// ========================================
-document.addEventListener("DOMContentLoaded", () => {
-    const reveals = document.querySelectorAll(".reveal");
-    reveals.forEach((element) => {
-        element.classList.add("active");
-    });
-});
-
-// ========================================
-// HERO TYPING EFFECT
-// ========================================
-document.addEventListener("DOMContentLoaded", () => {
-    const words = ["Full-Stack Developer", "Problem Solver", "CS Undergrad", "Tech Enthusiast"];
-    let wordIndex = 0;
-    let letterIndex = 0;
-    let currentText = "";
-    let isDeleting = false;
-    const typingSpeed = 100;
-    
-    const typingElement = document.querySelector(".typing-text");
-
-    if (typingElement) {
-        const typeEffect = () => {
-            const currentWord = words[wordIndex % words.length];
-            
-            if (isDeleting) {
-                currentText = currentWord.substring(0, letterIndex - 1);
-                letterIndex--;
-            } else {
-                currentText = currentWord.substring(0, letterIndex + 1);
-                letterIndex++;
-            }
-
-            typingElement.textContent = currentText;
-
-            let delay = typingSpeed;
-
-            if (!isDeleting && letterIndex === currentWord.length) {
-                delay = 1500; // Pause at the end of the word
-                isDeleting = true;
-            } else if (isDeleting && letterIndex === 0) {
-                isDeleting = false;
-                wordIndex++;
-                delay = 500; // Pause before starting next word
-            } else if (isDeleting) {
-                delay = 50; // Faster deletion speed
-            }
-
-            setTimeout(typeEffect, delay);
-        };
-        
-        typeEffect();
-    }
-});
-
-// ========================================
-// NUMBER COUNTER ANIMATION
-// ========================================
-const animateCounters = () => {
-    const counters = document.querySelectorAll('.stat-number');
-    const speed = 100; 
-
-    counters.forEach(counter => {
-        const updateCount = () => {
-            const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText;
-            const inc = target / speed;
-
-            if (count < target) {
-                counter.innerText = Math.ceil(count + inc);
-                setTimeout(updateCount, 20); 
-            } else {
-                counter.innerText = target;
-            }
-        };
-        updateCount();
-    });
-};
-
-// ========================================
-// SKILL BAR ANIMATION
-// ========================================
-const animateSkills = () => {
-    const skillBars = document.querySelectorAll('.skill-progress');
-    skillBars.forEach(bar => {
-        const targetWidth = bar.getAttribute('data-width');
-        bar.style.width = targetWidth + '%';
-    });
-};
-
-// ========================================
-// SCROLL OBSERVERS (Triggers animations only on scroll)
-// ========================================
-document.addEventListener("DOMContentLoaded", () => {
-    const observerOptions = {
-        threshold: 0.3 // Triggers when 30% of the section is visible
-    };
-
-    const statsObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounters();
-                observer.unobserve(entry.target); // Prevents re-running
-            }
-        });
-    }, observerOptions);
-
-    const skillsObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateSkills();
-                observer.unobserve(entry.target); // Prevents re-running
-            }
-        });
-    }, observerOptions);
-
-    const aboutSection = document.querySelector('.about-section');
-    const skillsSection = document.querySelector('.skills-section');
-
-    if (aboutSection) statsObserver.observe(aboutSection);
-    if (skillsSection) skillsObserver.observe(skillsSection);
-});
-
-// ========================================
-// CONTACT FORM HANDLING
-// ========================================
-document.addEventListener("DOMContentLoaded", () => {
-    const contactForm = document.getElementById("contact-form");
-
-    if (!contactForm) return;
 
     contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        console.log("Submit button click hua!");
+        console.log("Button click hua!");
 
         const btn = contactForm.querySelector(".submit-btn");
-        const originalContent = btn.innerHTML;
-
-        btn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
+        const originalText = btn.innerText;
+        btn.innerText = "Sending...";
         btn.disabled = true;
 
         const data = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            message: document.getElementById("message").value
+            name: document.querySelector("#name").value,
+            email: document.querySelector("#email").value,
+            message: document.querySelector("#message").value
         };
 
-      try {
-        const response = await fetch("https://portfolio-jphq.onrender.com/contact", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
+        try {
+            console.log("Request bhej rahe hain...", data);
+            
+            const response = await fetch("https://portfolio-jphq.onrender.com/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
 
             const result = await response.json();
-
-            if (result.success) {
-                btn.innerHTML = '<span>Message Sent!</span> <i class="fas fa-check"></i>';
+            
+            if (response.ok) {
+                alert("Message Sent Successfully!");
                 contactForm.reset();
             } else {
-                btn.innerHTML = '<span>Failed!</span> <i class="fas fa-times"></i>';
+                alert("Server Error: " + (result.message || "Something went wrong"));
             }
         } catch (error) {
-            console.error(error);
-            btn.innerHTML = '<span>Error!</span> <i class="fas fa-times"></i>';
-        }
-
-        setTimeout(() => {
-            btn.innerHTML = originalContent;
+            console.error("Fetch Error:", error);
+            alert("Request fail ho gayi! Check network.");
+        } finally {
+            btn.innerText = originalText;
             btn.disabled = false;
-        }, 3000);
+        }
     });
 });
