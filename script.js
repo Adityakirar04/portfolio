@@ -1,14 +1,170 @@
  // ========================================
-// PRELOADER
+// PRELOADER WITH PERCENTAGE
 // ========================================
 window.addEventListener("load", () => {
-    const preloader = document.querySelector(".preloader");
-    if (preloader) {
-        preloader.classList.add("hidden");
-        setTimeout(() => {
-            preloader.style.display = "none";
-        }, 600);
+    const preloader = document.getElementById("preloader");
+    const bar = document.getElementById("preloader-bar");
+    const percent = document.getElementById("preloader-percent");
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15 + 5;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            setTimeout(() => {
+                preloader.classList.add("hidden");
+                setTimeout(() => preloader.remove(), 800);
+            }, 400);
+        }
+        bar.style.width = progress + "%";
+        percent.textContent = Math.floor(progress) + "%";
+    }, 80);
+});
+
+// ========================================
+// CUSTOM CURSOR
+// ========================================
+const cursorDot = document.getElementById("cursor-dot");
+const cursorOutline = document.getElementById("cursor-outline");
+
+if (cursorDot && cursorOutline && window.matchMedia("(pointer: fine)").matches) {
+    let mouseX = 0, mouseY = 0;
+    let outlineX = 0, outlineY = 0;
+    
+    window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.left = mouseX + "px";
+        cursorDot.style.top = mouseY + "px";
+    });
+    
+    function animateCursor() {
+        outlineX += (mouseX - outlineX) * 0.15;
+        outlineY += (mouseY - outlineY) * 0.15;
+        cursorOutline.style.left = outlineX + "px";
+        cursorOutline.style.top = outlineY + "px";
+        requestAnimationFrame(animateCursor);
     }
+    animateCursor();
+    
+    // Hover effect
+    document.querySelectorAll("a, button, .magnetic-btn").forEach(el => {
+        el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+        el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+    });
+}
+
+// ========================================
+// MAGNETIC BUTTONS
+// ========================================
+document.querySelectorAll(".magnetic-btn").forEach(btn => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    
+    btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+    
+    btn.addEventListener("mouseleave", () => {
+        btn.style.transform = "translate(0, 0)";
+    });
+});
+
+// ========================================
+// 3D TILT CARDS
+// ========================================
+document.querySelectorAll(".tilt-card").forEach(card => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    
+    card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    
+    card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+    });
+});
+
+// ========================================
+// TEXT SCRAMBLE EFFECT
+// ========================================
+class TextScramble {
+    constructor(el) {
+        this.el = el;
+        this.chars = "!<>-_\\/[]{}—=+*^?#________";
+        this.update = this.update.bind(this);
+    }
+    setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+            const from = oldText[i] || "";
+            const to = newText[i] || "";
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({ from, to, start, end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+    }
+    update() {
+        let output = "";
+        let complete = 0;
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+            let { from, to, start, end, char } = this.queue[i];
+            if (this.frame >= end) {
+                complete++;
+                output += to;
+            } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                    char = this.randomChar();
+                    this.queue[i].char = char;
+                }
+                output += `<span style="color:var(--accent-purple)">${char}</span>`;
+            } else {
+                output += from;
+            }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+            this.resolve();
+        } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            this.frame++;
+        }
+    }
+    randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+}
+
+document.querySelectorAll(".scramble-text").forEach(el => {
+    const fx = new TextScramble(el);
+    const original = el.dataset.value;
+    let counter = 0;
+    
+    const next = () => {
+        fx.setText(original).then(() => {
+            setTimeout(next, 3000);
+        });
+    };
+    setTimeout(next, 1000);
+    
+    el.addEventListener("mouseenter", () => fx.setText(original));
 });
 
 // ========================================
@@ -25,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
             navLinks.classList.toggle("active");
         });
 
-        // Close menu when clicking a link
         navLinksItems.forEach(link => {
             link.addEventListener("click", () => {
                 mobileMenu.classList.remove("active");
@@ -36,23 +191,38 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================================
-// HEADER SCROLL EFFECT (Sticky + Shadow)
+// THEME TOGGLE
+// ========================================
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+function setTheme(theme) {
+    body.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}
+
+const savedTheme = localStorage.getItem('theme') || 'dark';
+setTheme(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const current = body.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// ========================================
+// HEADER SCROLL EFFECT
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".header");
     if (header) {
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 50) {
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
-            }
+            header.classList.toggle("scrolled", window.scrollY > 50);
         });
     }
 });
 
 // ========================================
-// SMOOTH SCROLLING FOR NAV LINKS
+// SMOOTH SCROLLING
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -60,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute("href"));
             if (target) {
-                const offset = 70; // Header height
+                const offset = 80;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
                 window.scrollTo({
                     top: targetPosition,
@@ -72,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================================
-// ACTIVE NAV LINK HIGHLIGHTING ON SCROLL
+// ACTIVE NAV LINK HIGHLIGHTING
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("section");
@@ -82,8 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let current = "";
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - 200) {
+            if (pageYOffset >= sectionTop - 250) {
                 current = section.getAttribute("id");
             }
         });
@@ -98,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================================
-// SCROLL REVEAL ANIMATION
+// SCROLL REVEAL WITH STAGGER
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
     const reveals = document.querySelectorAll(".reveal");
@@ -106,13 +275,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add("active");
+                const delay = entry.target.dataset.delay || 0;
+                setTimeout(() => {
+                    entry.target.classList.add("active");
+                }, parseInt(delay));
                 observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.1,
+        rootMargin: "0px 0px -60px 0px"
     });
 
     reveals.forEach(element => {
@@ -129,7 +301,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let letterIndex = 0;
     let currentText = "";
     let isDeleting = false;
-    const typingSpeed = 100;
 
     const typingElement = document.querySelector(".typing-text");
 
@@ -147,24 +318,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
             typingElement.textContent = currentText;
 
-            let delay = typingSpeed;
+            let delay = isDeleting ? 40 : 100;
 
             if (!isDeleting && letterIndex === currentWord.length) {
-                delay = 1500;
+                delay = 2000;
                 isDeleting = true;
             } else if (isDeleting && letterIndex === 0) {
                 isDeleting = false;
                 wordIndex++;
-                delay = 500;
-            } else if (isDeleting) {
-                delay = 50;
+                delay = 600;
             }
 
             setTimeout(typeEffect, delay);
         };
 
-        // Start typing after preloader
-        setTimeout(typeEffect, 800);
+        setTimeout(typeEffect, 1200);
     }
 });
 
@@ -173,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ========================================
 const animateCounters = () => {
     const counters = document.querySelectorAll('.stat-number');
-    const speed = 50;
+    const speed = 40;
 
     counters.forEach(counter => {
         const target = +counter.getAttribute('data-target');
@@ -184,7 +352,7 @@ const animateCounters = () => {
             const current = +counter.innerText;
             if (current < target) {
                 counter.innerText = Math.ceil(current + inc);
-                setTimeout(updateCount, 25);
+                setTimeout(updateCount, 30);
             } else {
                 counter.innerText = target;
             }
@@ -209,9 +377,7 @@ const animateSkills = () => {
 // SCROLL OBSERVERS FOR STATS & SKILLS
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
-    const observerOptions = {
-        threshold: 0.3
-    };
+    const observerOptions = { threshold: 0.3 };
 
     const statsObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -239,95 +405,98 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================================
-// CONTACT FORM - FORMSPREE INTEGRATION (100% WORKING)
+// CONTACT FORM - FORMSPREE
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
     const contactForm = document.getElementById("contact-form");
-
     if (!contactForm) return;
 
     contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-
         const btn = contactForm.querySelector(".submit-btn");
         const originalContent = btn.innerHTML;
 
-        // Loading state
         btn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
         btn.disabled = true;
-
-        // Get form data
-        const formData = new FormData(contactForm);
 
         try {
             const response = await fetch(contactForm.action, {
                 method: "POST",
-                body: formData,
-                headers: {
-                    Accept: "application/json"
-                }
+                body: new FormData(contactForm),
+                headers: { Accept: "application/json" }
             });
 
             if (response.ok) {
-                // Success
                 btn.innerHTML = '<span>Message Sent!</span> <i class="fas fa-check"></i>';
-                btn.style.background = "#00f2fe";
+                btn.style.background = "var(--accent-green)";
                 btn.style.color = "#0a0a0a";
                 contactForm.reset();
-
-                // Reset button after 3 seconds
-                setTimeout(() => {
-                    btn.innerHTML = originalContent;
-                    btn.style.background = "";
-                    btn.style.color = "";
-                    btn.disabled = false;
-                }, 3000);
+                showToast("Message sent successfully!", "success");
             } else {
-                // Error from Formspree
-                const data = await response.json();
-                if (data.errors) {
-                    btn.innerHTML = `<span>${data.errors[0].message}</span> <i class="fas fa-times"></i>`;
-                } else {
-                    btn.innerHTML = '<span>Failed!</span> <i class="fas fa-times"></i>';
-                }
-                setTimeout(() => {
-                    btn.innerHTML = originalContent;
-                    btn.disabled = false;
-                }, 3000);
+                throw new Error("Failed");
             }
         } catch (error) {
-            console.error("Form submission error:", error);
             btn.innerHTML = '<span>Error!</span> <i class="fas fa-times"></i>';
-            setTimeout(() => {
-                btn.innerHTML = originalContent;
-                btn.disabled = false;
-            }, 3000);
+            btn.style.background = "var(--accent-pink)";
+            showToast("Failed to send message. Please try again.", "error");
         }
+
+        setTimeout(() => {
+            btn.innerHTML = originalContent;
+            btn.style.background = "";
+            btn.style.color = "";
+            btn.disabled = false;
+        }, 3000);
     });
 });
 
 // ========================================
-// PARTICLE BACKGROUND ANIMATION
+// TOAST NOTIFICATION
+// ========================================
+function showToast(message, type = "success") {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add("show"), 10);
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+}
+
+// ========================================
+// PARTICLE BACKGROUND WITH MOUSE INTERACTION
 // ========================================
 const canvas = document.getElementById("particle-canvas");
 
 if (canvas) {
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
     let particlesArray = [];
-    let animationId;
+    let mouse = { x: null, y: null, radius: 150 };
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    window.addEventListener("mousemove", (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
 
     class Particle {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 0.5;
-            this.speedX = Math.random() * 1 - 0.5;
-            this.speedY = Math.random() * 1 - 0.5;
+            this.size = Math.random() * 2.5 + 0.5;
+            this.speedX = Math.random() * 1.5 - 0.75;
+            this.speedY = Math.random() * 1.5 - 0.75;
+            this.opacity = Math.random() * 0.5 + 0.2;
         }
-
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
@@ -336,10 +505,25 @@ if (canvas) {
             if (this.x < 0) this.x = canvas.width;
             if (this.y > canvas.height) this.y = 0;
             if (this.y < 0) this.y = canvas.height;
-        }
 
+            // Mouse interaction
+            if (mouse.x != null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    const forceDirectionX = dx / distance;
+                    const forceDirectionY = dy / distance;
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    const directionX = forceDirectionX * force * 2;
+                    const directionY = forceDirectionY * force * 2;
+                    this.x -= directionX;
+                    this.y -= directionY;
+                }
+            }
+        }
         draw() {
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.4)';
+            ctx.fillStyle = `rgba(0, 240, 255, ${this.opacity})`;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -348,34 +532,57 @@ if (canvas) {
 
     function initParticles() {
         particlesArray = [];
-        const particleCount = window.innerWidth < 768 ? 60 : 120;
-        for (let i = 0; i < particleCount; i++) {
-            particlesArray.push(new Particle());
-        }
+        const count = window.innerWidth < 768 ? 60 : 140;
+        for (let i = 0; i < count; i++) particlesArray.push(new Particle());
     }
+    initParticles();
 
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particlesArray.forEach(p => { p.update(); p.draw(); });
+
+        // Connect nearby particles
         for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-            particlesArray[i].draw();
+            for (let j = i + 1; j < particlesArray.length; j++) {
+                const dx = particlesArray[i].x - particles[j].x;
+                const dy = particlesArray[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    ctx.strokeStyle = `rgba(0, 240, 255, ${0.12 * (1 - dist / 120)})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
         }
-        animationId = requestAnimationFrame(animateParticles);
+        requestAnimationFrame(animateParticles);
     }
-
-    // Handle resize properly
-    window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
-    });
-
-    initParticles();
     animateParticles();
 }
 
 // ========================================
-// SCROLL INDICATOR HIDE ON SCROLL
+// MOUSE-FOLLOWING ORBS
+// ========================================
+document.addEventListener("mousemove", (e) => {
+    const orb1 = document.getElementById("orb-1");
+    const orb2 = document.getElementById("orb-2");
+    const orb3 = document.getElementById("orb-3");
+    
+    if (orb1) {
+        orb1.style.transform = `translate(${e.clientX * 0.02}px, ${e.clientY * 0.02}px)`;
+    }
+    if (orb2) {
+        orb2.style.transform = `translate(${-e.clientX * 0.015}px, ${-e.clientY * 0.015}px)`;
+    }
+    if (orb3) {
+        orb3.style.transform = `translate(${e.clientX * 0.01}px, ${-e.clientY * 0.01}px)`;
+    }
+});
+
+// ========================================
+// SCROLL INDICATOR HIDE
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
     const scrollIndicator = document.querySelector(".scroll-indicator");
@@ -401,9 +608,65 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("scroll", () => {
             const scrollY = window.scrollY;
             if (scrollY < window.innerHeight) {
-                heroContent.style.transform = `translateY(${scrollY * 0.3}px)`;
-                heroContent.style.opacity = 1 - (scrollY / 700);
+                heroContent.style.transform = `translateY(${scrollY * 0.4}px)`;
+                heroContent.style.opacity = 1 - (scrollY / 600);
             }
         });
+    }
+});
+
+// ========================================
+// PROGRESS BAR
+// ========================================
+const progressBar = document.getElementById("progress-bar");
+window.addEventListener("scroll", () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (winScroll / height) * 100 + "%";
+});
+
+// ========================================
+// BACK TO TOP
+// ========================================
+const backToTop = document.getElementById("back-to-top");
+window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("visible", window.scrollY > 500);
+});
+backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// ========================================
+// DYNAMIC YEAR
+// ========================================
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// ========================================
+// VELOCITY SKEW ON SCROLL
+// ========================================
+let lastScrollTop = 0;
+let ticking = false;
+
+window.addEventListener("scroll", () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            const velocity = st - lastScrollTop;
+            const skew = Math.max(-3, Math.min(3, velocity * 0.05));
+            
+            document.querySelectorAll("section").forEach(section => {
+                section.style.transform = `skewY(${skew}deg)`;
+            });
+            
+            setTimeout(() => {
+                document.querySelectorAll("section").forEach(section => {
+                    section.style.transform = "skewY(0deg)";
+                });
+            }, 100);
+            
+            lastScrollTop = st <= 0 ? 0 : st;
+            ticking = false;
+        });
+        ticking = true;
     }
 });

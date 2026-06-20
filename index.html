@@ -5,42 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Aditya Kirar | Full-Stack Developer & DSA Enthusiast</title>
     <meta name="description" content="Aditya Kirar - Computer Science undergrad, Full-Stack Developer, Problem Solver. Building modern web experiences.">
-    <meta name="theme-color" content="#050810">
+    <meta name="theme-color" content="#030508">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preload" href="style.css" as="style">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* Critical CSS for instant render */
-        .preloader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#050810;transition:opacity .6s,visibility .6s}
-        .preloader.hidden{opacity:0;visibility:hidden}
-        .loader-ring{width:50px;height:50px;border:3px solid transparent;border-top-color:#00f2fe;border-right-color:#9b51e0;border-radius:50%;animation:spin 1s linear infinite}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        .loader-text{margin-top:20px;color:#94a3b8;letter-spacing:3px;font-size:.95rem;font-weight:500}
-        .dots::after{content:'.';animation:dots 1.5s infinite}
-        @keyframes dots{0%,20%{content:'.'}40%{content:'..'}60%,100%{content:'...'}}
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="dark">
 
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
-        <div class="loader-ring"></div>
-        <div class="loader-text">Loading<span class="dots"></span></div>
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <span class="logo-bracket">&lt;</span>Aditya<span class="logo-accent">/&gt;</span>
+            </div>
+            <div class="preloader-bar-container">
+                <div class="preloader-bar" id="preloader-bar"></div>
+            </div>
+            <div class="preloader-percent" id="preloader-percent">0%</div>
+        </div>
     </div>
 
     <!-- BACKGROUND EFFECTS -->
     <div class="bg-effects" aria-hidden="true">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="mesh-gradient"></div>
+        <div class="mesh-gradient" id="mesh-gradient"></div>
+        <div class="orb orb-1" id="orb-1"></div>
+        <div class="orb orb-2" id="orb-2"></div>
+        <div class="orb orb-3" id="orb-3"></div>
         <div class="grid-overlay"></div>
+        <div class="noise-overlay"></div>
         <canvas id="particle-canvas"></canvas>
     </div>
 
-    <!-- SCROLL PROGRESS -->
+    <!-- PROGRESS BAR -->
     <div class="progress-bar" id="progress-bar" aria-hidden="true"></div>
 
     <!-- SKIP LINK -->
@@ -49,28 +49,25 @@
     <!-- HEADER -->
     <header class="header" id="header">
         <nav class="navbar">
-            <a href="#home" class="logo">
+            <a href="#home" class="logo magnetic-btn">
                 <span class="logo-bracket">&lt;</span>Aditya<span class="logo-accent">/&gt;</span>
             </a>
 
             <ul class="nav-links" id="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Journey</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="active magnetic-btn">Home</a></li>
+                <li><a href="#about" class="magnetic-btn">About</a></li>
+                <li><a href="#skills" class="magnetic-btn">Skills</a></li>
+                <li><a href="#experience" class="magnetic-btn">Journey</a></li>
+                <li><a href="#projects" class="magnetic-btn">Projects</a></li>
+                <li><a href="#contact" class="magnetic-btn">Contact</a></li>
             </ul>
 
             <div class="nav-actions">
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <button class="theme-toggle magnetic-btn" id="theme-toggle" aria-label="Toggle theme">
                     <i class="fas fa-moon moon-icon"></i>
                     <i class="fas fa-sun sun-icon"></i>
                 </button>
-                
-                <!-- Mobile Menu -->
-                <button class="menu-toggle" id="mobile-menu" aria-label="Toggle menu">
+                <button class="menu-toggle magnetic-btn" id="mobile-menu" aria-label="Toggle menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -85,37 +82,39 @@
         <!-- HERO -->
         <section id="home" class="hero-section">
             <div class="hero-content">
-                <div class="hero-badge reveal">
+                <div class="hero-badge reveal" data-delay="0">
                     <span class="pulse-dot"></span>
                     Available for opportunities
                 </div>
-                <h3 class="reveal">Hello World, I'm</h3>
-                <h1 class="reveal">Aditya Kirar</h1>
-                <div class="typing-container reveal">
+                <h3 class="reveal" data-delay="100">Hello World, I'm</h3>
+                <h1 class="reveal" data-delay="200">
+                    <span class="scramble-text" data-value="Aditya Kirar">Aditya Kirar</span>
+                </h1>
+                <div class="typing-container reveal" data-delay="300">
                     <span class="static-text">I'm a </span>
                     <span class="typing-text"></span>
                     <span class="cursor">|</span>
                 </div>
-                <p class="sub-tagline reveal">
+                <p class="sub-tagline reveal" data-delay="400">
                     Building modern, clean web experiences and breaking down algorithms under the alias 
                     <span class="highlight">Dark Recursion</span>.
                 </p>
-                <div class="social-icons reveal">
-                    <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <div class="social-icons reveal" data-delay="500">
+                    <a href="https://github.com/Adityakirar04" target="_blank" rel="noopener noreferrer" class="social-btn magnetic-btn">
                         <i class="fab fa-github"></i><span>GitHub</span>
                     </a>
-                    <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" rel="noopener noreferrer" class="social-btn">
+                    <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" rel="noopener noreferrer" class="social-btn magnetic-btn">
                         <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
                     </a>
-                    <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                    <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" rel="noopener noreferrer" class="social-btn magnetic-btn">
                         <i class="fas fa-code"></i><span>LeetCode</span>
                     </a>
                 </div>
-                <div class="hero-btns reveal">
-                    <a href="#projects" class="btn primary-btn">
+                <div class="hero-btns reveal" data-delay="600">
+                    <a href="#projects" class="btn primary-btn magnetic-btn">
                         <span>View My Work</span><i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="newone.pdf" download class="btn secondary-btn">
+                    <a href="newone.pdf" download class="btn secondary-btn magnetic-btn">
                         <span>Download Resume</span><i class="fas fa-download"></i>
                     </a>
                 </div>
@@ -130,8 +129,8 @@
         <section id="about" class="about-section">
             <h2 class="section-title reveal">About Me</h2>
             <div class="about-container">
-                <div class="about-image reveal">
-                    <div class="image-frame">
+                <div class="about-image reveal" data-delay="100">
+                    <div class="image-frame tilt-card">
                         <div class="image-placeholder">
                             <img src="profile.jpeg" alt="Aditya Kirar" loading="lazy">
                         </div>
@@ -142,16 +141,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-content reveal">
+                <div class="about-content reveal" data-delay="200">
                     <div class="about-text">
                         <p class="lead">I am a highly motivated <strong>Computer Science & Engineering</strong> undergraduate at Jaypee University of Engineering and Technology.</p>
                         <p>I bridge the gap between interactive, responsive user interfaces and structural logic. Right now, I'm actively sharpening my full-stack capabilities—diving deep into backend development with Node.js, Express, and databases while consistently grinding out complex data structures and algorithm problems on LeetCode.</p>
                     </div>
                     <div class="stats-grid">
-                        <div class="stat-card"><span class="stat-number" data-target="200">0</span>+<span class="stat-label">Problems Solved</span></div>
-                        <div class="stat-card"><span class="stat-number" data-target="5">0</span>+<span class="stat-label">Projects Built</span></div>
-                        <div class="stat-card"><span class="stat-number" data-target="3">0</span>+<span class="stat-label">Years Coding</span></div>
-                        <div class="stat-card"><span class="stat-number" data-target="100">0</span>%<<span class="stat-label">Commitment</span></div>
+                        <div class="stat-card" data-delay="0">
+                            <div class="stat-icon"><i class="fas fa-brain"></i></div>
+                            <span class="stat-number" data-target="200">0</span>+<span class="stat-label">Problems Solved</span>
+                        </div>
+                        <div class="stat-card" data-delay="100">
+                            <div class="stat-icon"><i class="fas fa-rocket"></i></div>
+                            <span class="stat-number" data-target="5">0</span>+<span class="stat-label">Projects Built</span>
+                        </div>
+                        <div class="stat-card" data-delay="200">
+                            <div class="stat-icon"><i class="fas fa-code"></i></div>
+                            <span class="stat-number" data-target="3">0</span>+<span class="stat-label">Years Coding</span>
+                        </div>
+                        <div class="stat-card" data-delay="300">
+                            <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                            <span class="stat-number" data-target="100">0</span>%<span class="stat-label">Commitment</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -161,7 +172,7 @@
         <section id="skills" class="skills-section">
             <h2 class="section-title reveal">Technical Skills</h2>
             <div class="skills-container">
-                <div class="skills-category reveal">
+                <div class="skills-category reveal" data-delay="0">
                     <div class="skill-header"><div class="skill-icon"><i class="fas fa-terminal"></i></div><h3>Languages</h3></div>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">C++</span><div class="skill-bar"><div class="skill-progress" data-width="90"></div></div></div>
@@ -170,7 +181,7 @@
                         <div class="skill-item"><span class="skill-name">Python</span><span class="badge">Basic</span></div>
                     </div>
                 </div>
-                <div class="skills-category reveal">
+                <div class="skills-category reveal" data-delay="100">
                     <div class="skill-header"><div class="skill-icon"><i class="fas fa-laptop-code"></i></div><h3>Frontend</h3></div>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">React.js</span><div class="skill-bar"><div class="skill-progress" data-width="80"></div></div></div>
@@ -178,7 +189,7 @@
                         <div class="skill-item"><span class="skill-name">Responsive Design</span><div class="skill-bar"><div class="skill-progress" data-width="90"></div></div></div>
                     </div>
                 </div>
-                <div class="skills-category reveal">
+                <div class="skills-category reveal" data-delay="200">
                     <div class="skill-header"><div class="skill-icon"><i class="fas fa-server"></i></div><h3>Backend & CS</h3></div>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">Node.js & Express</span><div class="skill-bar"><div class="skill-progress" data-width="80"></div></div></div>
@@ -187,7 +198,7 @@
                         <div class="skill-item"><span class="skill-name">OOPs, OS & DBMS</span><div class="skill-bar"><div class="skill-progress" data-width="85"></div></div></div>
                     </div>
                 </div>
-                <div class="skills-category reveal">
+                <div class="skills-category reveal" data-delay="300">
                     <div class="skill-header"><div class="skill-icon"><i class="fas fa-tools"></i></div><h3>Tools</h3></div>
                     <div class="skill-items">
                         <div class="skill-item"><span class="skill-name">Git & GitHub</span><div class="skill-bar"><div class="skill-progress" data-width="85"></div></div></div>
@@ -202,16 +213,16 @@
         <section id="experience" class="timeline-section">
             <h2 class="section-title reveal">Journey So Far</h2>
             <div class="timeline-container">
-                <div class="timeline-block reveal">
+                <div class="timeline-block reveal" data-delay="0">
                     <h3 class="block-title"><div class="block-icon"><i class="fas fa-briefcase"></i></div>Experience</h3>
-                    <div class="timeline-card">
+                    <div class="timeline-card tilt-card">
                         <div class="timeline-date"><span class="date-badge">June 2025 – August 2025</span></div>
                         <h4>Web Development Intern</h4>
                         <h5>Codec Technologies (Remote)</h5>
                         <p>Developed responsive web interfaces using HTML, CSS, and JavaScript. Collaborated on frontend UI and managed version control via Git/GitHub.</p>
                         <div class="timeline-tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Git</span></div>
                     </div>
-                    <div class="timeline-card">
+                    <div class="timeline-card tilt-card">
                         <div class="timeline-date"><span class="date-badge">DSA & Problem Solving</span></div>
                         <h4>LeetCode: DarkRecursion</h4>
                         <h5>Active Problem Solver</h5>
@@ -219,19 +230,19 @@
                         <div class="lc-mini"><span><i class="fas fa-fire"></i> 200+ Problems</span><span><i class="fas fa-trophy"></i> Top 15%</span></div>
                     </div>
                 </div>
-                <div class="timeline-block reveal">
+                <div class="timeline-block reveal" data-delay="200">
                     <h3 class="block-title"><div class="block-icon"><i class="fas fa-graduation-cap"></i></div>Education</h3>
-                    <div class="timeline-card">
+                    <div class="timeline-card tilt-card">
                         <div class="timeline-date"><span class="date-badge">2023 – 2027</span></div>
                         <h4>B.Tech in Computer Science</h4>
                         <h5>Jaypee University of Engineering and Technology, Guna</h5>
                     </div>
-                    <div class="timeline-card">
+                    <div class="timeline-card tilt-card">
                         <div class="timeline-date"><span class="date-badge">2022 – 2023</span></div>
                         <h4>Class XII (Senior Secondary)</h4>
                         <h5>Vidisha Academy | Score: 73.4%</h5>
                     </div>
-                    <div class="timeline-card">
+                    <div class="timeline-card tilt-card">
                         <div class="timeline-date"><span class="date-badge">2020 – 2021</span></div>
                         <h4>Class X (Secondary School)</h4>
                         <h5>Magdham International School | Score: 88%</h5>
@@ -244,12 +255,12 @@
         <section id="projects" class="projects-section">
             <h2 class="section-title reveal">Featured Projects</h2>
             <div class="projects-grid">
-                <article class="project-card reveal">
+                <article class="project-card reveal tilt-card" data-delay="0">
                     <div class="project-image">
                         <div class="project-icon"><i class="fas fa-link"></i></div>
                         <div class="project-overlay">
-                            <a href="https://github.com/Adityakirar04" target="_blank" class="project-link"><i class="fab fa-github"></i></a>
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/Adityakirar04" target="_blank" class="project-link magnetic-btn"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link magnetic-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -258,12 +269,12 @@
                         <div class="project-tags"><span>Node.js</span><span>MongoDB</span><span>REST API</span></div>
                     </div>
                 </article>
-                <article class="project-card reveal">
+                <article class="project-card reveal tilt-card" data-delay="100">
                     <div class="project-image">
                         <div class="project-icon"><i class="fas fa-user-graduate"></i></div>
                         <div class="project-overlay">
-                            <a href="https://github.com/Adityakirar04" target="_blank" class="project-link"><i class="fab fa-github"></i></a>
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/Adityakirar04" target="_blank" class="project-link magnetic-btn"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link magnetic-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -272,12 +283,12 @@
                         <div class="project-tags"><span>React.js</span><span>Node.js</span><span>Express.js</span></div>
                     </div>
                 </article>
-                <article class="project-card reveal">
+                <article class="project-card reveal tilt-card" data-delay="200">
                     <div class="project-image">
                         <div class="project-icon"><i class="fas fa-tasks"></i></div>
                         <div class="project-overlay">
-                            <a href="https://github.com/Adityakirar04" target="_blank" class="project-link"><i class="fab fa-github"></i></a>
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/Adityakirar04" target="_blank" class="project-link magnetic-btn"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link magnetic-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -293,15 +304,15 @@
         <section id="certifications" class="certs-section">
             <h2 class="section-title reveal">Certifications</h2>
             <div class="certs-grid">
-                <div class="cert-card reveal">
+                <div class="cert-card reveal tilt-card" data-delay="0">
                     <div class="cert-icon"><i class="fas fa-certificate"></i></div>
                     <div class="cert-info"><h4>Web Development Internship</h4><p>Codec Technologies</p><span>2025</span></div>
                 </div>
-                <div class="cert-card reveal">
+                <div class="cert-card reveal tilt-card" data-delay="100">
                     <div class="cert-icon"><i class="fas fa-code"></i></div>
                     <div class="cert-info"><h4>DSA Problem Solving</h4><p>LeetCode & HackerRank</p><span>Ongoing</span></div>
                 </div>
-                <div class="cert-card reveal">
+                <div class="cert-card reveal tilt-card" data-delay="200">
                     <div class="cert-icon"><i class="fab fa-react"></i></div>
                     <div class="cert-info"><h4>React.js Development</h4><p>Self-Learning & Projects</p><span>2024-2025</span></div>
                 </div>
@@ -316,21 +327,21 @@
                     <h3>Let's build something amazing together</h3>
                     <p>Whether you have an opportunity, a project to collaborate on, or just want to discuss interesting DSA architectures—my inbox is always open!</p>
                     <div class="contact-details">
-                        <div class="info-item">
+                        <div class="info-item tilt-card">
                             <div class="info-icon"><i class="fas fa-envelope"></i></div>
                             <div class="info-content">
                                 <span class="info-label">Email</span>
                                 <span class="info-value">mr.kirar62@gmail.com</span>
                             </div>
                         </div>
-                        <div class="info-item">
+                        <div class="info-item tilt-card">
                             <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
                             <div class="info-content">
                                 <span class="info-label">Phone</span>
                                 <span class="info-value">+91 7879861554</span>
                             </div>
                         </div>
-                        <div class="info-item">
+                        <div class="info-item tilt-card">
                             <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="info-content">
                                 <span class="info-label">Location</span>
@@ -338,8 +349,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- WhatsApp CTA in Contact -->
-                    <a href="https://wa.me/917879861554" target="_blank" class="whatsapp-btn">
+                    <a href="https://wa.me/917879861554" target="_blank" class="whatsapp-btn magnetic-btn">
                         <i class="fab fa-whatsapp"></i>
                         <span>Message on WhatsApp</span>
                     </a>
@@ -348,7 +358,7 @@
                         <span>Usually responds within 24 hours</span>
                     </div>
                 </div>
-                <div class="contact-form-container">
+                <div class="contact-form-container tilt-card">
                     <form class="contact-form" id="contact-form" action="https://formspree.io/f/mojzoeyp" method="POST">
                         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-group">
@@ -366,7 +376,7 @@
                             <label for="message">Your Message</label>
                             <i class="fas fa-comment"></i>
                         </div>
-                        <button type="submit" class="btn primary-btn submit-btn">
+                        <button type="submit" class="btn primary-btn submit-btn magnetic-btn">
                             <span>Send Message</span><i class="fas fa-paper-plane"></i>
                         </button>
                     </form>
@@ -381,16 +391,16 @@
         <div class="footer-content">
             <div class="footer-logo"><span class="logo-bracket">&lt;</span>Aditya<span class="logo-accent">/&gt;</span></div>
             <div class="footer-social">
-                <a href="https://github.com/Adityakirar04" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://leetcode.com/u/DarkRecursion/" target="_blank"><i class="fas fa-code"></i></a>
-                <a href="mailto:mr.kirar62@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/Adityakirar04" target="_blank" class="magnetic-btn"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/aditya-kirar" target="_blank" class="magnetic-btn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://leetcode.com/u/DarkRecursion/" target="_blank" class="magnetic-btn"><i class="fas fa-code"></i></a>
+                <a href="mailto:mr.kirar62@gmail.com" class="magnetic-btn"><i class="fas fa-envelope"></i></a>
             </div>
             <div class="footer-nav">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
+                <a href="#home" class="magnetic-btn">Home</a>
+                <a href="#about" class="magnetic-btn">About</a>
+                <a href="#projects" class="magnetic-btn">Projects</a>
+                <a href="#contact" class="magnetic-btn">Contact</a>
             </div>
             <p class="footer-text">&copy; <span id="year">2026</span> Aditya Kirar. Engineered with <i class="fas fa-heart pulse"></i> and passion.</p>
             <p class="footer-credit">Built with HTML, CSS & JavaScript. No frameworks.</p>
@@ -398,299 +408,19 @@
     </footer>
 
     <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/917879861554" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/917879861554" target="_blank" class="whatsapp-float magnetic-btn" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
         <span class="whatsapp-tooltip">Chat on WhatsApp</span>
     </a>
 
     <!-- BACK TO TOP -->
-    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <button class="back-to-top magnetic-btn" id="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- TOAST -->
     <div class="toast-container" id="toast-container"></div>
 
-    <!-- INLINE JS FOR CRITICAL FEATURES -->
-    <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-        const iconMoon = themeToggle.querySelector('.moon-icon');
-        const iconSun = themeToggle.querySelector('.sun-icon');
-
-        function setTheme(theme) {
-            body.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            if (theme === 'dark') {
-                iconMoon.style.display = 'block';
-                iconSun.style.display = 'none';
-            } else {
-                iconMoon.style.display = 'none';
-                iconSun.style.display = 'block';
-            }
-        }
-
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        setTheme(savedTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const current = body.getAttribute('data-theme');
-            setTheme(current === 'dark' ? 'light' : 'dark');
-        });
-
-        // Preloader
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.classList.add('hidden');
-                setTimeout(() => preloader.remove(), 600);
-            }
-        });
-
-        // Mobile Menu
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-        mobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Header Scroll
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offset = 80;
-                    const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                    window.scrollTo({ top: pos, behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Active Nav Link
-        const sections = document.querySelectorAll('section');
-        const navLinksAll = document.querySelectorAll('.nav-links a');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                if (window.scrollY >= section.offsetTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLinksAll.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-            });
-        });
-
-        // Scroll Reveal
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-        // Typing Effect
-        const words = ["Full-Stack Developer", "Problem Solver", "CS Undergrad", "Tech Enthusiast"];
-        let wordIndex = 0, letterIndex = 0, currentText = "", isDeleting = false;
-        const typingElement = document.querySelector('.typing-text');
-        function typeEffect() {
-            const currentWord = words[wordIndex % words.length];
-            currentText = isDeleting ? currentWord.substring(0, letterIndex - 1) : currentWord.substring(0, letterIndex + 1);
-            letterIndex += isDeleting ? -1 : 1;
-            typingElement.textContent = currentText;
-            let delay = isDeleting ? 50 : 100;
-            if (!isDeleting && letterIndex === currentWord.length) { delay = 1500; isDeleting = true; }
-            else if (isDeleting && letterIndex === 0) { isDeleting = false; wordIndex++; delay = 500; }
-            setTimeout(typeEffect, delay);
-        }
-        setTimeout(typeEffect, 800);
-
-        // Counter Animation
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.querySelectorAll('.stat-number').forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        const inc = target / 50;
-                        const update = () => {
-                            const c = +counter.innerText;
-                            if (c < target) { counter.innerText = Math.ceil(c + inc); setTimeout(update, 25); }
-                            else { counter.innerText = target; }
-                        };
-                        update();
-                    });
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        const aboutSection = document.querySelector('.about-section');
-        if (aboutSection) statsObserver.observe(aboutSection);
-
-        // Skill Bars
-        const skillsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.querySelectorAll('.skill-progress').forEach(bar => {
-                        bar.style.width = bar.getAttribute('data-width') + '%';
-                    });
-                    skillsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        const skillsSection = document.querySelector('.skills-section');
-        if (skillsSection) skillsObserver.observe(skillsSection);
-
-        // Progress Bar
-        const progressBar = document.getElementById('progress-bar');
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            progressBar.style.width = (winScroll / height) * 100 + '%';
-        });
-
-        // Back to Top
-        const backToTop = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            backToTop.classList.toggle('visible', window.scrollY > 500);
-        });
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Form Handling
-        const contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = contactForm.querySelector('.submit-btn');
-                const original = btn.innerHTML;
-                btn.innerHTML = '<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>';
-                btn.disabled = true;
-                try {
-                    const response = await fetch(contactForm.action, {
-                        method: 'POST',
-                        body: new FormData(contactForm),
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (response.ok) {
-                        btn.innerHTML = '<span>Message Sent!</span> <i class="fas fa-check"></i>';
-                        btn.style.background = '#00ff88';
-                        btn.style.color = '#0a0a0a';
-                        contactForm.reset();
-                        showToast('Message sent successfully!', 'success');
-                    } else {
-                        throw new Error('Failed');
-                    }
-                } catch {
-                    btn.innerHTML = '<span>Error!</span> <i class="fas fa-times"></i>';
-                    btn.style.background = '#ff006e';
-                    showToast('Failed to send message. Please try again.', 'error');
-                }
-                setTimeout(() => {
-                    btn.innerHTML = original;
-                    btn.style.background = '';
-                    btn.style.color = '';
-                    btn.disabled = false;
-                }, 3000);
-            });
-        }
-
-        // Toast Notification
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i><span>${message}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.classList.add('show'), 10);
-            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
-        }
-
-        // Dynamic Year
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Particles
-        const canvas = document.getElementById('particle-canvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-            resize();
-            window.addEventListener('resize', resize);
-            
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = Math.random() * 1 - 0.5;
-                    this.speedY = Math.random() * 1 - 0.5;
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.y > canvas.height) this.y = 0;
-                    if (this.y < 0) this.y = canvas.height;
-                }
-                draw() {
-                    ctx.fillStyle = `rgba(0, 242, 254, ${this.opacity})`;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-            
-            function initParticles() {
-                particles = [];
-                const count = window.innerWidth < 768 ? 50 : 120;
-                for (let i = 0; i < count; i++) particles.push(new Particle());
-            }
-            initParticles();
-            
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                // Connect nearby particles
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx*dx + dy*dy);
-                        if (dist < 100) {
-                            ctx.strokeStyle = `rgba(0, 242, 254, ${0.1 * (1 - dist/100)})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-                requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
