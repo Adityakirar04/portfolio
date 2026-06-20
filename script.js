@@ -48,7 +48,6 @@ if (cursorDot && cursorOutline && window.matchMedia("(pointer: fine)").matches) 
     }
     animateCursor();
     
-    // Hover effect
     document.querySelectorAll("a, button, .magnetic-btn").forEach(el => {
         el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
         el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
@@ -155,14 +154,13 @@ class TextScramble {
 document.querySelectorAll(".scramble-text").forEach(el => {
     const fx = new TextScramble(el);
     const original = el.dataset.value;
-    let counter = 0;
     
     const next = () => {
         fx.setText(original).then(() => {
-            setTimeout(next, 3000);
+            setTimeout(next, 4000);
         });
     };
-    setTimeout(next, 1000);
+    setTimeout(next, 1200);
     
     el.addEventListener("mouseenter", () => fx.setText(original));
 });
@@ -467,7 +465,7 @@ function showToast(message, type = "success") {
 }
 
 // ========================================
-// PARTICLE BACKGROUND WITH MOUSE INTERACTION
+// PARTICLE BACKGROUND - FIXED & VISIBLE
 // ========================================
 const canvas = document.getElementById("particle-canvas");
 
@@ -495,7 +493,7 @@ if (canvas) {
             this.size = Math.random() * 2.5 + 0.5;
             this.speedX = Math.random() * 1.5 - 0.75;
             this.speedY = Math.random() * 1.5 - 0.75;
-            this.opacity = Math.random() * 0.5 + 0.2;
+            this.opacity = Math.random() * 0.5 + 0.3;
         }
         update() {
             this.x += this.speedX;
@@ -506,7 +504,6 @@ if (canvas) {
             if (this.y > canvas.height) this.y = 0;
             if (this.y < 0) this.y = canvas.height;
 
-            // Mouse interaction
             if (mouse.x != null) {
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
@@ -541,14 +538,13 @@ if (canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particlesArray.forEach(p => { p.update(); p.draw(); });
 
-        // Connect nearby particles
         for (let i = 0; i < particlesArray.length; i++) {
             for (let j = i + 1; j < particlesArray.length; j++) {
                 const dx = particlesArray[i].x - particles[j].x;
                 const dy = particlesArray[i].y - particles[j].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 120) {
-                    ctx.strokeStyle = `rgba(0, 240, 255, ${0.12 * (1 - dist / 120)})`;
+                    ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 120)})`;
                     ctx.lineWidth = 0.6;
                     ctx.beginPath();
                     ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
